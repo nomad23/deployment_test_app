@@ -124,7 +124,7 @@ echo Handling Angular build
     eval $NODE_EXE ./node_modules/@angular/cli/bin/ng build --prod --env=prod --aot
     exitWithMessageOnError "npm failed"
     # :: the next line is optional to fix 404 error see section #8
-    # call :ExecuteCmd cp "%DEPLOYMENT_TARGET%"/web.config "%DEPLOYMENT_TARGET%"/dist/
+    eval "$DEPLOYMENT_TARGET"/web.config "$DEPLOYMENT_TARGET"/dist/
     # IF !ERRORLEVEL! NEQ 0 goto error
     # popd
   fi

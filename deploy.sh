@@ -114,8 +114,8 @@ if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
 fi
 echo Handling Angular build   
   #4. Build ng app
-  if ["$DEPLOYMENT_SOURCE/angular.json" ]; then
-    cd "$DEPLOYMENT_SOURCE"
+  if ["$DEPLOYMENT_TARGET/angular.json" ]; then
+    cd "$DEPLOYMENT_TARGET"
     eval $NODE_EXE ./node_modules/@angular/cli/bin/ng build --prod --env=prod --aot
     exitWithMessageOnError "npm failed"
     # :: the next line is optional to fix 404 error see section #8

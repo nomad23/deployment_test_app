@@ -114,11 +114,11 @@ if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
 fi
 # 3. Angular Prod Build
 if [ -e "$DEPLOYMENT_SOURCE/angular.json" ]; then
-  echo Building App in $DEPLOYMENT_SOURCE…
+  # echo Building App in $DEPLOYMENT_SOURCE…
   cd "$DEPLOYMENT_SOURCE"
-  # eval $NPM_CMD run build
+  eval $NPM_CMD run build 
   #If the above command fails comment above and uncomment below one
-  eval ./node_modules/.bin/ng build –prod
+  # eval ./node_modules/.bin/ng build –prod
   exitWithMessageOnError "npm failed"
   cd - > /dev/null
 fi

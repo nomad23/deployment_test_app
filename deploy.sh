@@ -102,7 +102,7 @@ echo Handling node.js deployment.
 
 # 1. KuduSync
 if [[ "$IN_PLACE_DEPLOYMENT" -ne "1" ]]; then
-  "$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE"/dist/ -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.sh"
+  "$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE/dist/" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.sh"
   exitWithMessageOnError "Kudu Sync failed"
 fi
 
@@ -110,8 +110,8 @@ fi
 selectNodeVersion
 
 # 3. Install npm packages
-if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
-  cd "$DEPLOYMENT_TARGET"
+if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
+  cd "$DEPLOYMENT_SOURCE"
   echo "Running $NPM_CMD install"
   eval $NPM_CMD install 
   exitWithMessageOnError "npm failed"
@@ -119,8 +119,8 @@ if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
 fi
 echo Handling Angular build   
   #4. Build ng app
-  if ["$DEPLOYMENT_TARGET\package.json" ]; then
-    cd "$DEPLOYMENT_TARGET"
+  if ["$DEPLOYMENT_SOURCE\package.json" ]; then
+    cd "$DEPLOYMENT_SOURCE"
     eval $NODE_EXE ./node_modules/@angular/cli/bin/ng build --prod --env=prod --aot
     exitWithMessageOnError "npm failed"
     # :: the next line is optional to fix 404 error see section #8
